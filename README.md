@@ -1,9 +1,17 @@
 # Outer
 
+## 1. Installation
+
+```
+pip install outer
+```
+
+## 2.1 Method
+
 A tool to manage output, which doesn't require you to create dir!
 
 
-## 1. You must define a blueprint in this method
+### 2.1. You must define a blueprint in this method
 ```
 from outer.File import File
 from outer.BluePrint import BluePrint
@@ -23,7 +31,7 @@ class BluePrintSample(BluePrint):
 ```
 
 
-## 2. Then you can simply use it with `touch` or `touch_` method!
+### 2.2. Then you can simply use it with `touch` or `touch_` method!
 ```
 from BluePrintSample import BluePrintSample
 
