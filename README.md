@@ -6,7 +6,7 @@
 pip install outer
 ```
 
-## 2.1 Method
+## 2 Method
 
 A tool to manage output, which doesn't require you to create dir!
 
