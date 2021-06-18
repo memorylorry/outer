@@ -8,4 +8,5 @@ setup(
     author='memorylorry',
     author_email='memorylorry@outlook.com',
     packages=setuptools.find_packages(),
+    url='https://github.com/memorylorry/outer.git'
 )
