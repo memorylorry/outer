@@ -3,18 +3,19 @@ import datetime as dt
 
 
 class VirtualTerminal:
-    def __init__(self, root='log', dir_delimiter=os.sep, use_dt=False):
+    def __init__(self, root='log', dir_delimiter=os.sep, key:str = None):
         # status
         self.current_dir = '.'
         # init
         self.dir_delimiter = dir_delimiter
-        if use_dt:
-            current_dt = self._get_current_datetime()
-            self.root_dir = os.path.join(root, current_dt)
+
+        self.check_dir(root)
+        if key is not None:
+            self.root_dir = os.path.join(root, key)
+            self.check_dir(self.root_dir)
         else:
             self.root_dir = root
-        self.check_dir(root)
-        self.check_dir(self.root_dir)
+
         # status info
         self.current_dir = self.root_dir
 
