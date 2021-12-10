@@ -2,8 +2,8 @@ from outer.VirtualTerminal import VirtualTerminal
 import os
 
 
-class File:
-    def __init__(self, path:str, is_dir=False):
+class Object:
+    def __init__(self, path: str, is_dir=False):
         self.path = path
         self.is_dir = is_dir
         self.terminal = None
@@ -32,3 +32,23 @@ class File:
 
     def set_terminal(self, terminal):
         self.terminal = terminal
+
+    def sub_file(self, path: str):
+        path = os.path.join(self.path, path)
+        return Object(path=path, is_dir=False)
+
+    def sub_dir(self, path: str):
+        path = os.path.join(self.path, path)
+        return Object(path=path, is_dir=True)
+
+
+class File(Object):
+    def __init__(self, path: str):
+        super(File, self).__init__(path=path, is_dir=False)
+
+
+class Dir(Object):
+    def __init__(self, path: str):
+        super(Dir, self).__init__(path=path, is_dir=True)
+
+

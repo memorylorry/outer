@@ -1,18 +1,19 @@
 from outer.VirtualTerminal import VirtualTerminal
-from outer.File import File
+from outer.Object import File, Dir, Object
+import os
 
 
-class BluePrint:
+class BluePrint(Dir):
     def __init__(self, root_dir='log', key:str = None):
-        self._root_dir = 'log'
+        self.path = os.path.join(root_dir, key) if key is not None else root_dir
+        super(BluePrint, self).__init__(path='')
         # default to init
-        self.init(root_dir=root_dir, key=key)
+        self.terminal = VirtualTerminal(root=root_dir, key=key)
+        self.set_terminal(self.terminal)
 
-    def init(self, root_dir='log', key:str = None):
-        self._root_dir = root_dir
-        terminal = VirtualTerminal(root=root_dir, key=key)
+    def init(self):
         # set terminal
         for name, obj in vars(self).items():
-            if type(obj) is File:
-                obj.set_terminal(terminal)
+            if type(obj) is Object or issubclass(type(obj), Object):
+                obj.set_terminal(self.terminal)
         return self
