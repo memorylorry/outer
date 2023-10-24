@@ -3,7 +3,7 @@ import setuptools
 
 setup(
     name='outer',
-    version='1.2',
+    version='1.3',
     description='A  module to manage output',
     author='memorylorry',
     author_email='memorylorry@outlook.com',

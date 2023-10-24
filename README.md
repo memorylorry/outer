@@ -23,33 +23,23 @@ pip install outer
 你必须定义1个BluePrint的子类，如outer项目下的[BluePrintSample.py](demo/BluePrintSample.py)，内容如下代码。
 
 ```
-from outer.Object import File, Dir, Object
-from outer.BluePrint import BluePrint
+from outer import *
 
 
-class BluePrintSample(BluePrint):
-    def __init__(self):
-        super().__init__(key=key)
-
+class BluePrintSample:
+    def __init__(self, key='1'):
         # 1. 建立项目的ROOT目录
-        # A. "{}"为占位符,可设定任意个数
-        self.ROOT = self.sub_dir('{}_UNet')
-
+        self.ROOT = Dir(f'log{key}')
         # 2. 利用self.ROOT去产生子文件和子目录，他们都存放在self.ROOT对应的目录下
-        # B. "{}"为占位符,可设定任意个数
         self.LOG_MAIN = self.ROOT.sub_file('run.log')
         self.LOG_TENSORBOARD = self.ROOT.sub_dir('event')
-        self.FILE_CHECKPOINT = self.ROOT.sub_file('model_{}.pkl')
+        self.FILE_CHECKPOINT = self.ROOT.sub_file('model.pkl')
 
         # 3. 此处的用法和2中的用法一样
-        self.TRAIN_DIR = self.ROOT.sub_file('train')
+        self.TRAIN_DIR = self.ROOT.sub_dir('train')
         self.TRAIN_IMG_OUTPUT = self.TRAIN_DIR.sub_dir('image')
         self.TRAIN_LABEL_OUTPUT = self.TRAIN_DIR.sub_dir('label')
         self.TRAIN_GT_OUTPUT = self.TRAIN_DIR.sub_dir('gt')
-
-        # recall father init
-        # 调用父类初始化方法，让所有定义的目录（Dir）、文件(File)属性和内部管理器绑定，如self.ROOT、self.LOG_MAIN、self.LOG_TENSORBOARD都会与内部管理器绑定。
-        self.init()
 ```
 
 
@@ -63,8 +53,8 @@ from BluePrintSample import BluePrintSample
 # 构建 blueprint 蓝图
 blueprint = BluePrintSample('1')
 # 使用touch_去生成路径，输出格式为字符串形式，如下参数‘1’替换了如上代码中A处的self.ROOT中的占位符"{}"
-out = blueprint.TRAIN_IMG_OUTPUT.touch_('1')
+out = blueprint.TRAIN_IMG_OUTPUT
 print(out)
 # 对于目录上存在占位符，文件上也存在占位符的，请指定一起指定多个参数。
-print(blueprint.FILE_CHECKPOINT.touch_(1, 'UNet'))
+print(blueprint.FILE_CHECKPOINT)
 ```
