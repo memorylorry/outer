@@ -1,12 +1,10 @@
-"""
-A sample to cover
-"""
-from BluePrintSample import BluePrintSample
+from outer import File, Dir
 
-# composite blueprint
-blueprint = BluePrintSample('1')
-# touch file or dir
-out = blueprint.TRAIN_IMG_OUTPUT.touch_('1')
-# std out
-print(out)
-print(blueprint.FILE_CHECKPOINT.touch_(1, 'UNet'))
+
+c = Dir('hello').sub_dir('hi').sub_dir('fsff')
+d = c.sub_dir('123')
+d.sub_dir('233')
+aa = c.__str__()
+x = d.sub_file('123.txt')
+print(d)
+
